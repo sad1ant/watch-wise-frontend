@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit"
 import authReducer from '../redux/slices/auth-slice'
+import moviesReducer from '../redux/slices/movie-slice'
+import seriesReducer from '../redux/slices/series-slice'
 
 const store = configureStore({
     reducer: {
-        auth: authReducer
+        auth: authReducer,
+        movies: moviesReducer,
+        series: seriesReducer,
     }
 })
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {AppDispatch} from "../../../store/store";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutUser, selectAuth} from "../../../redux/slices/auth-slice";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Button from "../../atoms/buttons/Button";
 import Modal from "../modals/Modal";
 import LoginForm from "../../molecules/forms/auth/LoginForm";
@@ -11,6 +11,7 @@ import RegisterForm from "../../molecules/forms/auth/RegisterForm";
 const Header: React.FC = () => {
     const dispatch: AppDispatch = useDispatch()
     const { isAuth } = useSelector(selectAuth)
+    const navigate = useNavigate()
 
     const [isLoginOpen, setIsLoginOpen] = useState(false)
     const [isRegisterOpen, setIsRegisterOpen] = useState(false)
@@ -23,15 +24,15 @@ const Header: React.FC = () => {
 
     const handleLogout = () => {
         dispatch(logoutUser())
+        navigate('/')
     }
 
     return (
-        <header className="bg-dark-purple flex items-center justify-between p-4 shadow-md">
+        <header className="bg-dark-purple flex items-center justify-between p-4 shadow-lg">
             <div className="flex items-center space-x-4">
-                <h1 className="text-white text-2xl font-bold cursor-pointer">Watch Wise</h1>
+                <h1 className="text-white text-2xl font-bold cursor-pointer" onClick={() => navigate('/')}>Watch Wise</h1>
                 <nav>
                     <ul className="flex space-x-4">
-                        <li><Link to="/" className="text-white no-underline hover:text-purple-400">Главная</Link></li>
                         <li><Link to="/movies" className="text-white no-underline hover:text-purple-400">Фильмы</Link></li>
                         <li><Link to="/series" className="text-white no-underline hover:text-purple-400">Сериалы</Link></li>
                         {isAuth && (
